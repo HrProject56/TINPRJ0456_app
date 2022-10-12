@@ -15,8 +15,8 @@ import 'views/homeView.dart';
  * Main function to run the program, holding the routing system of the app
  **/
 void main() => runApp(MaterialApp(
-	initialRoute: '/',
+	initialRoute: '/home',
 	routes: {
-		'/': (context) => HomeView(),
+		'/home': (context) => HomeView(),
 	},
 ));

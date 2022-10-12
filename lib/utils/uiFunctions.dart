@@ -8,6 +8,7 @@
 
 
 import 'package:flutter/material.dart';
+import '../presenters/navigationPresenter.dart';
 
 
 class UIFunctions
@@ -73,13 +74,14 @@ class UIFunctions
 	static List<Widget> addNavigationBar(BuildContext context, int size)
 	{
 		List<Widget> nav = [];
+		NavigationPresenter navPresenter = new NavigationPresenter();
 
 		for (int i = 0; i < size; i++) {
 			nav.add(Container(
 				width: calculateWidthByFactor(context, 100/size),
 				alignment: Alignment.bottomCenter,
 				child: MaterialButton(
-					onPressed: () async {},
+					onPressed: () async => navPresenter.onPressed(context, NAV_NAMES_LIST[i]),
 					child: Icon(
 						NAV_ICON_LIST[i],
 						size: 40.0,
