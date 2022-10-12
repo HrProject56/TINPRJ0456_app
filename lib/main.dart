@@ -9,6 +9,13 @@
 
 import 'package:flutter/material.dart';
 import 'views/homeView.dart';
+import 'views/bluetoothView.dart';
+import 'views/cameraView.dart';
+import 'views/databaseView.dart';
+import 'views/historyView.dart';
+import 'views/resultsView.dart';
+import 'views/settingsView.dart';
+import 'views/statisticsView.dart';
 
 
 /**
@@ -17,6 +24,13 @@ import 'views/homeView.dart';
 void main() => runApp(MaterialApp(
 	initialRoute: '/home',
 	routes: {
-		'/home': (context) => HomeView(),
+		'/home': 	(context) => HomeView(),
+		'/statistics': 	(context) => StatisticsView(),
+		'/camera': 	(context) => CameraView(),
+		'/database': 	(context) => DatabaseView(),
+		'/settings': 	(context) => SettingsView(),
+		'/results': 	(context) => ResultsView(),
+		'/bluetooth': 	(context) => BluetoothView(),
+		'/history': 	(context) => HistoryView(),
 	},
 ));

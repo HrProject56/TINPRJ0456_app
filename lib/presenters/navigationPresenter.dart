@@ -28,6 +28,10 @@ class NavigationPresenter
 	Future<VoidCallback?> onPressed(BuildContext context, String button) async 
 	{
 		String pathId = "";
+		
+		if (button == "") {
+			// Hier moet ik nog wat op verzinnen aangezien de functie async is
+		}
 
 		if (ModalRoute.of(context)?.settings.name != null) {
 			String? p = ModalRoute.of(context)?.settings.name!!;
@@ -35,44 +39,10 @@ class NavigationPresenter
 			pathId = pathId.split("/")[1];
 		}
 
-		switch (button)
-		{
-			case "home":
-				if (isActive(button, pathId) == false) {
-					print("[route]\t\tRoute home werkt!!");
-					print("De button naam: "+button);
-				}
-
-				break;
-			case "statistics":
-				if (isActive(button, pathId) == false) {
-					print("[route]\t\tRoute Statistics werkt!!");	
-					print(button);
-				}
-
-				break;
-			case "camera":
-				if (isActive(button, pathId) == false) {
-					print("[route]\t\tRoute camera werkt!!");
-					print(button);
-				}
-
-				break;
-			case "database":
-				if (isActive(button, pathId) == false) {
-
-				}
-	
-				break;
-			case "settings":
-				if (isActive(button, pathId) == false) {
-
-				}			
-
-				break;
-			default:
-				break;
-		}
+		if (isActive(button, pathId) == false) {
+			Navigator.pop(context);
+			Navigator.pushNamed(context, "/"+button);
+		}	
 	}
 
 	
