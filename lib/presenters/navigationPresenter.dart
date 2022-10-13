@@ -41,7 +41,7 @@ class NavigationPresenter
 
 		if (isActive(button, pathId) == false) {
 			Navigator.pop(context);
-			Navigator.pushNamed(context, "/"+button);
+			Navigator.pushNamedAndRemoveUntil(context, "/"+button, (Route<dynamic> route) => false);
 		}	
 	}
 
@@ -51,7 +51,7 @@ class NavigationPresenter
 	 **/
 	bool isActive(String button, String viewId)
 	{
-		if (button == viewId) {
+		if (button == viewId || viewId == "") {
 			return true;
 		}
 
