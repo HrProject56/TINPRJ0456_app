@@ -7,9 +7,9 @@
  **/
 
 
-class Model 
+abstract class Model
 {
-	int id;
+	int id = 0;
 
 	
 	/**

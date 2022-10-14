@@ -45,7 +45,7 @@ class UIFunctions
 			
 		bar.add(Container(
 			width: calculateWidthByFactor(context, 50),
-			alignment: Alignment.topLeft,
+			alignment: Alignment.bottomLeft,
 			padding: EdgeInsets.fromLTRB(20.0, 00.0, 00.0, 00.0),
 			child: Text(
 				title,
@@ -56,7 +56,7 @@ class UIFunctions
 		));
 		bar.add(Container(
 			width: calculateWidthByFactor(context, 50),
-			alignment: Alignment.topRight,
+			alignment: Alignment.bottomRight,
 			padding: EdgeInsets.fromLTRB(00.0, 00.0, 20.0, 00.0),
 			child: Icon(
 				Icons.grid_view,

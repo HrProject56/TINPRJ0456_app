@@ -34,11 +34,14 @@ class NavigationPresenter
 		}
 
 		if (ModalRoute.of(context)?.settings.name != null) {
-			String? p = ModalRoute.of(context)?.settings.name!!;
+			String? p = ModalRoute
+					.of(context)
+					?.settings
+					.name!!;
 			pathId = p!!;
 			pathId = pathId.split("/")[1];
 		}
-
+		
 		if (isActive(button, pathId) == false) {
 			Navigator.pop(context);
 			Navigator.pushNamedAndRemoveUntil(context, "/"+button, (Route<dynamic> route) => false);

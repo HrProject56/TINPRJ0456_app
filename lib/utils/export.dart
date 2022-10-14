@@ -7,5 +7,5 @@
  **/
 
 
-export 'uiFunctions.dart'
-export 'colorPallette.dart'
+export 'uiFunctions.dart';
+export 'colorPalette.dart';

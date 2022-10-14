@@ -52,7 +52,7 @@ class _HomeView extends State<HomeView>
 							// Title Container
 							Container(
 								width: MediaQuery.of(context).size.width,
-								height: UIFunctions.calculateHeightByFactor(context, 20),
+								height: UIFunctions.calculateHeightByFactor(context, 10),
 								alignment: FractionalOffset.topCenter,
 								margin: EdgeInsets.fromLTRB(00.0, 30.0, 00.00, 00.0),
 								child: Row(
@@ -64,7 +64,7 @@ class _HomeView extends State<HomeView>
 							// Contents Container
 							Container(
 								width: MediaQuery.of(context).size.width,
-								height: UIFunctions.calculateHeightByFactor(context, 65),
+								height: UIFunctions.calculateHeightByFactor(context, 75),
 							),							
 
 

@@ -7,4 +7,6 @@
  **/
 
 
-export 'navigationPresenter.dart'
+export 'navigationPresenter.dart';
+export 'settingsPresenter.dart';
+export 'bluetoothPresenter.dart';
