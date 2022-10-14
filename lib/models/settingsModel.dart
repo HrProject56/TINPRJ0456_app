@@ -12,23 +12,38 @@ import 'model.dart';
 
 class SettingsModel extends Model
 {
-  static bool _darkLightValue = false;
-  static String _currentLanguage = "English";
-  static List<String> _savedDatabases = [];
+  static SettingsModel? _instance;
+
+  bool _darkLightValue = false;
+  String _currentLanguage = "English";
+  List<String> _savedDatabases = [];
+
+
+  /**
+   * Construct instance
+   */
+  static SettingsModel getInstance()
+  {
+    if (_instance == null) {
+      _instance = SettingsModel();
+    }
+
+    return _instance!!;
+  }
 
 
   /**
    * Setters
    */
-  static set setDarkLightMode(bool value) => _darkLightValue = value;
-  static set setCurrentLanguage(String lang) => _currentLanguage = lang;
-  static set setSavedDatabases(String url) => _savedDatabases.add(url);
+  set setDarkLightMode(bool value) => _darkLightValue = value;
+  set setCurrentLanguage(String lang) => _currentLanguage = lang;
+  set setSavedDatabases(String url) => _savedDatabases.add(url);
 
 
   /**
    * Getters
    */
-  static bool get getDarkLightMode => _darkLightValue;
-  static String get getCurrentLanguage => _currentLanguage;
-  static List<String> get getSavedDatabases => _savedDatabases;
+  bool get getDarkLightMode => _darkLightValue;
+  String get getCurrentLanguage => _currentLanguage;
+  List<String> get getSavedDatabases => _savedDatabases;
 }

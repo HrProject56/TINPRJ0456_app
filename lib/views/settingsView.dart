@@ -30,7 +30,7 @@ class _SettingsView extends State<SettingsView>
 	final fontSize = 20.0;
 	bool darkLightMode = false;
 
-	SettingsPresenter presenter = new SettingsPresenter();
+	SettingsPresenter settingsPresenter = SettingsPresenter();
 
 	
 	/**
@@ -52,22 +52,14 @@ class _SettingsView extends State<SettingsView>
 	{
 		return Scaffold(
 			appBar: null,
-			backgroundColor: SettingsPresenter.getDarkLightMode ? ColorPallette.getBackgroundDarkColor : ColorPallette.getBackgroundLightColor,
+			backgroundColor: UIFunctions.toggleBackground(),
 			body: Center(
 				child: Container(
 					height: double.maxFinite,
 					child: Column(
 						children: <Widget>[
 							// Title Container
-							Container(
-								width: MediaQuery.of(context).size.width,
-								height: UIFunctions.calculateHeightByFactor(context, 10),
-								alignment: FractionalOffset.topCenter,
-								margin: EdgeInsets.fromLTRB(00.0, 30.0, 00.00, 30.0),
-								child: Row(
-									children: UIFunctions.addTopBar(context, title),
-								),
-							),
+							UIFunctions.addTopBar(context, title),
 
 							
 							// Contents Container
@@ -79,7 +71,7 @@ class _SettingsView extends State<SettingsView>
 									border: Border(
 										top: BorderSide(
 											width: 1.0,
-											color: Colors.black,
+											color: UIFunctions.toggleFontColor(),
 											style: BorderStyle.solid,
 										),
 									),
@@ -96,7 +88,7 @@ class _SettingsView extends State<SettingsView>
 																border: Border(
 																	top: BorderSide(
 																		width: 1.0,
-																		color: Colors.black,
+																		color: UIFunctions.toggleFontColor(),
 																		style: BorderStyle.solid,
 																	),
 																),
@@ -105,6 +97,7 @@ class _SettingsView extends State<SettingsView>
 																	"Scanner koppelen",
 																	style: TextStyle(
 																		fontSize: fontSize,
+																		color: UIFunctions.toggleFontColor(),
 																	),
 															),
 														),
@@ -116,16 +109,17 @@ class _SettingsView extends State<SettingsView>
 																border: Border(
 																	top: BorderSide(
 																		width: 1.0,
-																		color: Colors.black,
+																		color: UIFunctions.toggleFontColor(),
 																		style: BorderStyle.solid,
 																	),
 																),
 															),
 															child: MaterialButton(
-																onPressed: () async => presenter.onPressedNavigation(context, "bluetooth"),
+																onPressed: () async => settingsPresenter.onPressedNavigation(context, "bluetooth"),
 																child: Icon(
 																	Icons.chevron_right,
 																	size: 35.0,
+																	color: UIFunctions.toggleFontColor(),
 																),
 															),
 														),
@@ -141,7 +135,7 @@ class _SettingsView extends State<SettingsView>
 																border: Border(
 																	top: BorderSide(
 																		width: 1.0,
-																		color: Colors.black,
+																		color: UIFunctions.toggleFontColor(),
 																		style: BorderStyle.solid,
 																	),
 																),
@@ -150,6 +144,7 @@ class _SettingsView extends State<SettingsView>
 																	"Database toevoegen",
 																	style: TextStyle(
 																		fontSize: fontSize,
+																		color: UIFunctions.toggleFontColor(),
 																	),
 															),
 														),
@@ -161,16 +156,17 @@ class _SettingsView extends State<SettingsView>
 																border: Border(
 																	top: BorderSide(
 																		width: 1.0,
-																		color: Colors.black,
+																		color: UIFunctions.toggleFontColor(),
 																		style: BorderStyle.solid,
 																	),
 																),
 															),
 															child: MaterialButton(
-																onPressed: () async => presenter.onPressedNavigation(context, "database"),
+																onPressed: () async => settingsPresenter.onPressedNavigation(context, "database"),
 																child: Icon(
 																	Icons.chevron_right,
 																	size: 35.0,
+																	color: UIFunctions.toggleFontColor(),
 																),
 															),
 														),
@@ -186,7 +182,7 @@ class _SettingsView extends State<SettingsView>
 																border: Border(
 																	top: BorderSide(
 																		width: 1.0,
-																		color: Colors.black,
+																		color: UIFunctions.toggleFontColor(),
 																		style: BorderStyle.solid,
 																	),
 																),
@@ -195,6 +191,7 @@ class _SettingsView extends State<SettingsView>
 																	"Geschiedenis bekijken",
 																	style: TextStyle(
 																		fontSize: fontSize,
+																		color: UIFunctions.toggleFontColor(),
 																	),
 															),
 														),
@@ -206,16 +203,17 @@ class _SettingsView extends State<SettingsView>
 																border: Border(
 																	top: BorderSide(
 																		width: 1.0,
-																		color: Colors.black,
+																		color: UIFunctions.toggleFontColor(),
 																		style: BorderStyle.solid,
 																	),
 																),
 															),
 															child: MaterialButton(
-																onPressed: () async => presenter.onPressedNavigation(context, "history"),
+																onPressed: () async => settingsPresenter.onPressedNavigation(context, "history"),
 																child: Icon(
 																	Icons.chevron_right,
 																	size: 35.0,
+																	color: UIFunctions.toggleFontColor(),
 																),
 															),
 														),
@@ -231,15 +229,16 @@ class _SettingsView extends State<SettingsView>
 																border: Border(
 																	top: BorderSide(
 																		width: 1.0,
-																		color: Colors.black,
+																		color: UIFunctions.toggleFontColor(),
 																		style: BorderStyle.solid,
 																	),
 																),
 															),
 															child: Text(
-																SettingsPresenter.getDarkLightMode ? "Dark Mode" : "Light Mode",
+																settingsPresenter.getDarkLightMode ? "Dark Mode" : "Light Mode",
 																style: TextStyle(
 																	fontSize: fontSize,
+																	color: UIFunctions.toggleFontColor(),
 																),
 															),
 														),
@@ -251,16 +250,16 @@ class _SettingsView extends State<SettingsView>
 																border: Border(
 																	top: BorderSide(
 																		width: 1.0,
-																		color: Colors.black,
+																		color: UIFunctions.toggleFontColor(),
 																		style: BorderStyle.solid,
 																	),
 																),
 															),
 															child: Switch(
-																value: SettingsPresenter.getDarkLightMode,
+																value: settingsPresenter.getDarkLightMode,
 																onChanged: (onchange) async {
 																	setState(() {
-																	  presenter.onSwitchedDLMode(context, onchange);
+																	  settingsPresenter.onSwitchedDLMode(context, onchange);
 																	});
 																},
 															),
@@ -277,7 +276,7 @@ class _SettingsView extends State<SettingsView>
 																border: Border(
 																	top: BorderSide(
 																		width: 1.0,
-																		color: Colors.black,
+																		color: UIFunctions.toggleFontColor(),
 																		style: BorderStyle.solid,
 																	),
 																),
@@ -285,6 +284,7 @@ class _SettingsView extends State<SettingsView>
 															child: Text("Taal",
 																style: TextStyle(
 																	fontSize: fontSize,
+																	color: UIFunctions.toggleFontColor(),
 																),
 															),
 														),
@@ -296,7 +296,7 @@ class _SettingsView extends State<SettingsView>
 																border: Border(
 																	top: BorderSide(
 																		width: 1.0,
-																		color: Colors.black,
+																		color: UIFunctions.toggleFontColor(),
 																		style: BorderStyle.solid,
 																	),
 																),
@@ -314,7 +314,7 @@ class _SettingsView extends State<SettingsView>
 																border: Border(
 																	top: BorderSide(
 																		width: 1.0,
-																		color: Colors.black,
+																		color: UIFunctions.toggleFontColor(),
 																		style: BorderStyle.solid,
 																	),
 																),
@@ -322,6 +322,7 @@ class _SettingsView extends State<SettingsView>
 															child: Text("Updates",
 																style: TextStyle(
 																	fontSize: fontSize,
+																	color: UIFunctions.toggleFontColor(),
 																),
 															),
 														),
@@ -333,7 +334,7 @@ class _SettingsView extends State<SettingsView>
 																border: Border(
 																	top: BorderSide(
 																		width: 1.0,
-																		color: Colors.black,
+																		color: UIFunctions.toggleFontColor(),
 																		style: BorderStyle.solid,
 																	),
 																),
@@ -343,6 +344,7 @@ class _SettingsView extends State<SettingsView>
 																child: Icon(
 																	Icons.file_download,
 																	size: 35.0,
+																	color: UIFunctions.toggleFontColor(),
 																),
 															),
 														),
@@ -358,7 +360,7 @@ class _SettingsView extends State<SettingsView>
 																border: Border(
 																	top: BorderSide(
 																		width: 1.0,
-																		color: Colors.black,
+																		color: UIFunctions.toggleFontColor(),
 																		style: BorderStyle.solid,
 																	),
 																),
@@ -366,6 +368,7 @@ class _SettingsView extends State<SettingsView>
 															child: Text("Versie",
 																style: TextStyle(
 																	fontSize: fontSize,
+																	color: UIFunctions.toggleFontColor(),
 																),
 															),
 														),
@@ -377,15 +380,16 @@ class _SettingsView extends State<SettingsView>
 																border: Border(
 																	top: BorderSide(
 																		width: 1.0,
-																		color: Colors.black,
+																		color: UIFunctions.toggleFontColor(),
 																		style: BorderStyle.solid,
 																	),
 																),
 															),
 															child: Text(
-																presenter.getAppVersion(),
+																settingsPresenter.getAppVersion(),
 																style: TextStyle(
 																	fontSize: 15.0,
+																	color: UIFunctions.toggleFontColor(),
 																),
 															),
 														),
@@ -397,13 +401,7 @@ class _SettingsView extends State<SettingsView>
 
 
 							// Navigation and footer container
-							Container(
-								width: MediaQuery.of(context).size.width,
-								alignment: FractionalOffset.bottomCenter,
-								child: Row(
-									children: UIFunctions.addNavigationBar(context, 5),
-								),
-							),
+							UIFunctions.addNavigationBar(context, 5),
 						],	
 					),	
 				),	
