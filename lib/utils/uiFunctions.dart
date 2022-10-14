@@ -9,6 +9,8 @@
 
 import 'package:flutter/material.dart';
 import '../presenters/navigationPresenter.dart';
+import 'colorPalette.dart';
+import '../presenters/settingsPresenter.dart';
 
 
 class UIFunctions
@@ -51,6 +53,7 @@ class UIFunctions
 				title,
 				style: TextStyle(
 					fontSize: 25.0,
+					color: SettingsPresenter.getDarkLightMode ? ColorPallette.getFontColorDark : ColorPallette.getFontColorLight,
 				),
 			),
 		));
@@ -61,6 +64,7 @@ class UIFunctions
 			child: Icon(
 				Icons.grid_view,
 				size: 45.0,
+				color: SettingsPresenter.getDarkLightMode ? ColorPallette.getFontColorDark : ColorPallette.getFontColorLight,
 			),
 		));
 
@@ -85,6 +89,7 @@ class UIFunctions
 					child: Icon(
 						NAV_ICON_LIST[i],
 						size: 40.0,
+						color: SettingsPresenter.getDarkLightMode ? ColorPallette.getFontColorDark : ColorPallette.getFontColorLight,
 					),
 				),
 			));

@@ -84,13 +84,13 @@ class SettingsPresenter
   /**
    * Setters
    */
-  static set setDarkLightMode(bool value) => SettingsModel.darkLightValue = value;
-  static set setSystemlang(String lang) => SettingsModel.currentLanguage = lang;
+  static set setDarkLightMode(bool value) => SettingsModel.setDarkLightMode = value;
+  static set setSystemlang(String lang) => SettingsModel.setCurrentLanguage = lang;
 
 
   /**
    * Getters
    */
-  static bool get getDarkLightMode => SettingsModel.darkLightValue;
-  static String get getSystemLang => SettingsModel.currentLanguage;
+  static bool get getDarkLightMode => SettingsModel.getDarkLightMode;
+  static String get getSystemLang => SettingsModel.getCurrentLanguage;
 }

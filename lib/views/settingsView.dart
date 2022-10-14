@@ -8,7 +8,9 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:scanner_app/utils/colorPalette.dart';
 import '../utils/uiFunctions.dart';
+import '../utils/colorPalette.dart';
 import '../presenters/settingsPresenter.dart';
 
 
@@ -50,6 +52,7 @@ class _SettingsView extends State<SettingsView>
 	{
 		return Scaffold(
 			appBar: null,
+			backgroundColor: SettingsPresenter.getDarkLightMode ? ColorPallette.getBackgroundDarkColor : ColorPallette.getBackgroundLightColor,
 			body: Center(
 				child: Container(
 					height: double.maxFinite,
