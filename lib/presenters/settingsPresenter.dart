@@ -15,7 +15,7 @@ import 'dart:async';
 class SettingsPresenter
 {
   final DEFAULT_VERSION = "1.0.0";
-  SettingsModel _settingsModel = SettingsModel();
+  late SettingsModel _settingsModel;
 
 
   /**
@@ -23,7 +23,7 @@ class SettingsPresenter
    */
   SettingsPresenter()
   {
-    _settingsModel = SettingsModel.getInstance()!!;
+    _settingsModel = SettingsModel.getInstance();
   }
 
 
@@ -87,7 +87,7 @@ class SettingsPresenter
    * Setters
    */
   set setDarkLightMode(bool value) => _settingsModel.setDarkLightMode = value;
-  set setSystemlang(String lang) => _settingsModel.setCurrentLanguage = lang;
+  set setSystemLang(String lang) => _settingsModel.setCurrentLanguage = lang;
 
 
   /**

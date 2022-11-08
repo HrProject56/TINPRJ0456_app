@@ -8,6 +8,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:scanner_app/presenters/databasePresenter.dart';
 import '../utils/uiFunctions.dart';
 
 
@@ -23,6 +24,7 @@ class DatabaseView extends StatefulWidget
 class _DatabaseView extends State<DatabaseView>
 {
 	final title = 'Database';
+	DatabasePresenter dbPresenter = new DatabasePresenter();
 
 	
 	/**
@@ -58,6 +60,17 @@ class _DatabaseView extends State<DatabaseView>
 							Container(
 								width: MediaQuery.of(context).size.width,
 								height: UIFunctions.calculateHeightByFactor(context,  70),
+								child: Column(
+									children: dbPresenter.checkIfdatabase() == true ? <Widget>[
+										Container(
+											child: Text("Wel een database"),
+										),
+									] : <Widget>[
+										Container(
+											child: Text("Geen database!"),
+										),
+									],
+								),
 							),							
 
 

@@ -9,6 +9,7 @@
 
 import 'package:flutter/material.dart';
 import '../utils/uiFunctions.dart';
+import '../presenters/bluetoothPresenter.dart';
 
 
 class BluetoothView extends StatefulWidget
@@ -23,7 +24,7 @@ class BluetoothView extends StatefulWidget
 class _BluetoothView extends State<BluetoothView>
 {
 	final title = 'Bluetooth devices';
-
+	BluetoothPresenter bluetoothPresenter = BluetoothPresenter();
 	
 	/**
 	 * Method to refresh the widget by disposing its old content
@@ -57,7 +58,23 @@ class _BluetoothView extends State<BluetoothView>
 							// Contents Container
 							Container(
 								width: MediaQuery.of(context).size.width,
-								height: UIFunctions.calculateHeightByFactor(context,  70),
+								height: UIFunctions.calculateHeightByFactor(context, 70),
+								padding: EdgeInsets.fromLTRB(30.0, 00.00, 30.00, 00.0),
+								decoration: BoxDecoration(
+									border: Border(
+										top: BorderSide(
+											width: 1.0,
+											color: UIFunctions.toggleFontColor(),
+											style: BorderStyle.solid,
+										),
+									),
+								),
+								child: ListView.builder (
+									itemCount: bluetoothPresenter.getDevices.length,
+									itemBuilder: (BuildContext context, int index) {
+										return bluetoothPresenter.getDevices.last;
+									},
+								),
 							),							
 
 

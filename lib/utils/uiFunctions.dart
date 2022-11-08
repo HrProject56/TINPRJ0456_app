@@ -15,9 +15,9 @@ import '../presenters/settingsPresenter.dart';
 
 class UIFunctions
 {
-	static final DIVIDER = 100;
-	static final NAV_NAMES_LIST = [ "home", "statistics", "camera", "database", "settings" ];
-	static final NAV_ICON_LIST = [ Icons.house, Icons.bar_chart, Icons.camera, Icons.data_object, Icons.settings ];
+	static const DIVIDER = 100;
+	static const NAV_NAMES_LIST = [ "home", "statistics", "camera", "database", "settings" ];
+	static const NAV_ICON_LIST = [ Icons.house, Icons.bar_chart, Icons.camera, Icons.data_object, Icons.settings ];
 	static final _settingsPresenter = SettingsPresenter();
 
 
@@ -54,6 +54,15 @@ class UIFunctions
 	static Color toggleFontColor()
 	{
 		return _settingsPresenter.getDarkLightMode ? ColorPallette.getFontColorDark : ColorPallette.getFontColorLight;
+	}
+
+
+	/**
+	 * Method to toggle light & dark font colors
+	 */
+	static Color toggleFontColorOpposite()
+	{
+		return _settingsPresenter.getDarkLightMode ? ColorPallette.getFontColorLight : ColorPallette.getFontColorDark;
 	}
 
 	
@@ -110,11 +119,13 @@ class UIFunctions
 				width: calculateWidthByFactor(context, 100/size),
 				alignment: Alignment.bottomCenter,
 				child: MaterialButton(
+					shape: const CircleBorder(),
+					color: navPresenter.isActive(NAV_NAMES_LIST[i], NavigationPresenter.getSelectedButton) ? ColorPallette.getContourColor : toggleBackground(),
 					onPressed: () async => navPresenter.onPressed(context, NAV_NAMES_LIST[i]),
 					child: Icon(
 						NAV_ICON_LIST[i],
 						size: 40.0,
-						color: toggleFontColor(),
+						color: navPresenter.isActive(NAV_NAMES_LIST[i], NavigationPresenter.getSelectedButton) ? toggleFontColorOpposite() : toggleFontColor(),
 					),
 				),
 			));

@@ -13,8 +13,11 @@ import 'dart:async';
 
 class NavigationPresenter
 {
+	static String _selectedButton = "home";
+
+
 	/**
-  	 * Constructor
+	 * Constructor
 	 **/
 	NavigationPresenter()
 	{
@@ -43,6 +46,8 @@ class NavigationPresenter
 		}
 		
 		if (isActive(button, pathId) == false) {
+			setSelectedButton = button;
+
 			Navigator.pop(context);
 			Navigator.pushNamedAndRemoveUntil(context, "/"+button, (Route<dynamic> route) => false);
 		}	
@@ -60,4 +65,16 @@ class NavigationPresenter
 
 		return false;
 	}
+
+
+	/**
+ 	 * Setters
+ 	 */
+	static set setSelectedButton(String button) => _selectedButton = button;
+
+
+	/**
+ 	 * Getters
+ 	 */
+	static String get getSelectedButton => _selectedButton;
 }

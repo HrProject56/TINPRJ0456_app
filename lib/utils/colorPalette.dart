@@ -17,6 +17,7 @@ class ColorPallette
     static final _backgroundDarkColor = Color.fromRGBO(42, 42, 42, _DEFAULT_OPACITY);
     static final _fontColorLight = Color.fromRGBO(00, 00, 00, _DEFAULT_OPACITY);
     static final _fontColorDark = Color.fromRGBO(255, 255, 255, _DEFAULT_OPACITY);
+    static final _contourcolor = Color.fromRGBO(230, 245, 251, _DEFAULT_OPACITY);
 
 
   /**
@@ -26,4 +27,5 @@ class ColorPallette
   static Color get getBackgroundLightColor => _backgroundLightColor;
   static Color get getFontColorLight => _fontColorLight;
   static Color get getFontColorDark => _fontColorDark;
+  static Color get getContourColor => _contourcolor;
 }

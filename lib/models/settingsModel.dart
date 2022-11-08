@@ -17,6 +17,7 @@ class SettingsModel extends Model
   bool _darkLightValue = false;
   String _currentLanguage = "English";
   List<String> _savedDatabases = [];
+  String _appVersion = "";
 
 
   /**
@@ -38,6 +39,7 @@ class SettingsModel extends Model
   set setDarkLightMode(bool value) => _darkLightValue = value;
   set setCurrentLanguage(String lang) => _currentLanguage = lang;
   set setSavedDatabases(String url) => _savedDatabases.add(url);
+  set setAppVersion(String version) => _appVersion = version;
 
 
   /**
@@ -46,4 +48,5 @@ class SettingsModel extends Model
   bool get getDarkLightMode => _darkLightValue;
   String get getCurrentLanguage => _currentLanguage;
   List<String> get getSavedDatabases => _savedDatabases;
+  String get getAppVersion => _appVersion;
 }

@@ -9,6 +9,7 @@
 
 import 'package:flutter/material.dart';
 import '../utils/uiFunctions.dart';
+import '../presenters/bluetoothPresenter.dart';
 
 
 class HomeView extends StatefulWidget
@@ -23,7 +24,6 @@ class HomeView extends StatefulWidget
 class _HomeView extends State<HomeView>
 {
 	final title = 'Dashboard';
-
 	
 	/**
 	 * Method to refresh the widget by disposing its old content
