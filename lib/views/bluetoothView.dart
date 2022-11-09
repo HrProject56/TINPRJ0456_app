@@ -8,6 +8,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 import '../utils/uiFunctions.dart';
 import '../presenters/bluetoothPresenter.dart';
 
@@ -69,11 +70,72 @@ class _BluetoothView extends State<BluetoothView>
 										),
 									),
 								),
-								child: ListView.builder (
-									itemCount: bluetoothPresenter.getDevices.length,
-									itemBuilder: (BuildContext context, int index) {
-										return bluetoothPresenter.getDevices.last;
-									},
+								child: Column(
+									children: <Widget>[
+										// Content of the connected devices
+										Container(
+											alignment: Alignment.bottomLeft,
+											child: Text(
+												"Gekoppelde apparaten!",
+												style: TextStyle(
+													fontSize: 12.00,
+													color: UIFunctions.toggleFontColor(),
+												),
+											),
+										),
+										Container(
+											height: UIFunctions.calculateHeightByFactor(context, 23.0),
+											child: StreamBuilder<List<BluetoothDevice>> (
+												stream: bluetoothPresenter.getConnectedList().stream,
+												builder: (context, stream) {
+													if (stream.hasData) {
+														List<BluetoothDevice> l = stream.data!;
+														return ListView.builder (
+																itemCount: l.length,
+																scrollDirection: Axis.vertical,
+																shrinkWrap: true,
+																itemBuilder: (BuildContext context, int index) {
+																	return bluetoothPresenter.addWidgetToList(l[index], true);
+																});
+													} else {
+														return Container();
+													}
+												},
+											),
+										),
+
+										// Content of the searched devices
+										Container(
+											alignment: Alignment.bottomLeft,
+											child: Text(
+													"Gevonden apparaten!",
+													style: TextStyle(
+														fontSize: 12.00,
+														color: UIFunctions.toggleFontColor(),
+													),
+											),
+										),
+										Container(
+											height: UIFunctions.calculateHeightByFactor(context, 33.0),
+											child: StreamBuilder<List<BluetoothDevice>> (
+												stream: bluetoothPresenter.getSearchList().stream,
+												builder: (context, stream) {
+													if (stream.hasData) {
+														List<BluetoothDevice> l = stream.data!;
+														return ListView.builder (
+																itemCount: l.length,
+																scrollDirection: Axis.vertical,
+																shrinkWrap: true,
+																itemBuilder: (BuildContext context, int index) {
+																	return bluetoothPresenter.addWidgetToList(l[index], false);
+																});
+													} else {
+														return Container();
+													}
+												},
+											),
+										),
+									],
 								),
 							),							
 
