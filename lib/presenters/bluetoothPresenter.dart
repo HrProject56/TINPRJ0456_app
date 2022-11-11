@@ -11,12 +11,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import '../models/bluetoothDeviceModel.dart';
 import '../utils/uiFunctions.dart';
 import 'dart:convert';
 
 
 class BluetoothPresenter
 {
+  final String SERVICE_ID         = "d6960225-2fbc-4565-bf52-0f1cc61bbfcf";
+  final String CHARACTERISTICS_ID = "13d258f5-80c4-4863-a995-53604358e2e5";
+
   late List<BluetoothDevice>                    _cdevices;              /// Connected devices
   late StreamController<List<BluetoothDevice>>  _connectedDevices;
   late StreamController<List<BluetoothDevice>>  _sdevices;              /// Search devices
@@ -37,6 +41,11 @@ class BluetoothPresenter
     _searchDevices = [];
     _connected = false;
     _flutterBlue = FlutterBlue.instance;
+
+    var deviceModel = BluetoothDeviceModel.getInstance();
+    if (deviceModel.getDevice != null) {
+      _connectedDevices.sink.add([deviceModel.getDevice!]);
+    }
 
     FlutterBlue.instance.state.listen((state) {
       if (state == BluetoothState.off) {
@@ -74,11 +83,6 @@ class BluetoothPresenter
             b_ids.add(s.device.id.id);
             _searchDevices.add(s.device);
             _sdevices.sink.add(_searchDevices);
-            // print('[info]\tDevice: ${s.device.id.id} with name ${s.device.name} and length: ${s.device.name.length} with RSSI: ${s.rssi} found!!\n');
-
-            // if (s.device.id.id == "08:3A:F2:31:9B:68") {
-            //   print("address: found!");
-            // }
           }
         }
       });
@@ -115,19 +119,51 @@ class BluetoothPresenter
     _cdevices.add(device);
     _connectedDevices.sink.add(_cdevices);
     _searchDevices.remove(device);
+    _sdevices.sink.add(_searchDevices);
+
+    BluetoothDeviceModel deviceModel = BluetoothDeviceModel.getInstance();
+    deviceModel.setDevice = device;
 
     var asciiDecoder = AsciiDecoder();
 
-    List<BluetoothService> services = await device.discoverServices();
-    services.forEach((x) {
-        x.characteristics.forEach((y) {
-          y.descriptors.forEach((z) async {
-            List<int> value = await z.read();
-            print('[info]\tData: ${value}');
-            //print('[info]\tData: ${asciiDecoder.convert(value)}');
-          });
-        });
-    });
+    var henk = await device.discoverServices();
+
+    print('[info]\tDevice gevonden: ${deviceModel.getDevice == null}');
+
+    for (BluetoothService x in henk) {
+      List<BluetoothCharacteristic> characteristics = x.characteristics;
+      if (x.uuid.toString() == SERVICE_ID) {
+        for (BluetoothCharacteristic y in characteristics) {
+          if (y.properties.read && y.uuid.toString() == CHARACTERISTICS_ID) {
+
+            List<int> value = await y.read();
+            // print('[info]\tData: ${value}');
+            print('[info]\tData characteristics: ${asciiDecoder.convert(value)}');
+
+            List<BluetoothDescriptor> lol = y.descriptors;
+            for (BluetoothDescriptor z in lol) {
+              List<int> value = await z.read();
+              print('[info]\tData descriptor: ${value}');
+
+              //print('[info]\tData: ${asciiDecoder.convert(value)}');
+            }
+          }
+        }
+      }
+    }
+
+    // services.forEach((x) {
+    //     x.characteristics.forEach((y) async {
+    //       List<int> value = await y.read();
+    //
+    //
+    //       y.descriptors.forEach((z) async {
+    //         List<int> value = await z.read();
+    //         print('[info]\tData: ${value}');
+    //         //print('[info]\tData: ${asciiDecoder.convert(value)}');
+    //       });
+    //     });
+    // });
   }
 
 
@@ -144,6 +180,8 @@ class BluetoothPresenter
 
     _cdevices.remove(device);
     _connectedDevices.sink.add(_cdevices);
+    _searchDevices.add(device);
+    _sdevices.sink.add(_searchDevices);
   }
 
 

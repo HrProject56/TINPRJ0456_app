@@ -30,23 +30,23 @@ class BluetoothDeviceModel extends Model
       _instance = BluetoothDeviceModel();
     }
 
-    return _instance!!;
+    return _instance!;
   }
 
 
   /**
    * Setters
    */
-  set setDevice(BluetoothDevice device) => _device;
-  set setServices(List<BluetoothService> services) => _services;
-  set setCharacteristics(List<BluetoothCharacteristic> characteristics) => _characteristics;
-  set setDescriptors(List<BluetoothDescriptor> descriptors) => _descriptors;
+  set setDevice(BluetoothDevice device) => _device = device;
+  set setServices(List<BluetoothService> services) => _services = services;
+  set setCharacteristics(List<BluetoothCharacteristic> characteristics) => _characteristics = characteristics;
+  set setDescriptors(List<BluetoothDescriptor> descriptors) => _descriptors = descriptors;
 
 
   /**
    * Getters
    */
-  BluetoothDevice get getDevice => _device!;
+  BluetoothDevice? get getDevice => _device;
   List<BluetoothService> get getServices => _services;
   List<BluetoothCharacteristic> get getCharacteristics => _characteristics;
   List<BluetoothDescriptor> get getDescriptors => _descriptors;
