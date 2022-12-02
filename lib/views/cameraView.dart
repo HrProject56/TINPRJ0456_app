@@ -30,6 +30,7 @@ class _CameraView extends State<CameraView>
 	bool _showCameraView = true;
 	List<BluetoothDevice> bl = [];
 	BluetoothDeviceModel d = BluetoothDeviceModel.getInstance();
+	BluetoothDevice?	_dropdownValue;
 
 	
 	/**
@@ -120,10 +121,13 @@ class _CameraView extends State<CameraView>
 													),
 													Container(
 														child: DropdownButton<BluetoothDevice>(
-															// value: bl.length > 0 ? bl.first : DropdownMenuItem<BluetoothDevice>(child: Text("Geen device gevonden!")),
-															value: null,
+															dropdownColor: UIFunctions.toggleFontColor(),
+															focusColor: UIFunctions.toggleFontColor(),
+															value: _dropdownValue,
 															onChanged: (BluetoothDevice? device) async {
-
+																setState(() {
+																  _dropdownValue = device;
+																});
 															},
 															items: bl.map<DropdownMenuItem<BluetoothDevice>>((BluetoothDevice device) {
 																return DropdownMenuItem<BluetoothDevice>(
@@ -183,9 +187,7 @@ class _CameraView extends State<CameraView>
 										),
 									],
 								),
-							),							
-
-
+							),
 							// Navigation and footer container
 							UIFunctions.addNavigationBar(context, 5),
 						],	

@@ -8,6 +8,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:scanner_app/models/bluetoothDataModel.dart';
 import '../utils/uiFunctions.dart';
 import '../presenters/bluetoothPresenter.dart';
 
@@ -42,6 +43,16 @@ class _HomeView extends State<HomeView>
 	@override
 	Widget build(BuildContext context)
 	{
+		BluetoothDataModel model = BluetoothDataModel.getInstance();
+
+		var l = model.getData;
+		if (l.length == 0) {
+			print("[info]\tEr zit geen data in de model!");
+		}
+		l.forEach((n) {
+			print('[info]\t${n}');
+		});
+
 		return Scaffold(
 			appBar: null,
 			backgroundColor: UIFunctions.toggleBackground(),

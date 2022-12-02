@@ -14,6 +14,7 @@ import 'package:flutter_blue/flutter_blue.dart';
 import '../models/bluetoothDeviceModel.dart';
 import '../utils/uiFunctions.dart';
 import 'dart:convert';
+import '../models/bluetoothDataModel.dart';
 
 
 class BluetoothPresenter
@@ -28,6 +29,7 @@ class BluetoothPresenter
   late bool                                     _connected;             /// State if connecteds
   final int                                     _timeout = 60;
   late FlutterBlue                              _flutterBlue;
+  late BluetoothDeviceModel                     _deviceModel;
 
 
   /**
@@ -41,10 +43,11 @@ class BluetoothPresenter
     _searchDevices = [];
     _connected = false;
     _flutterBlue = FlutterBlue.instance;
+    _deviceModel = BluetoothDeviceModel.getInstance();
 
-    var deviceModel = BluetoothDeviceModel.getInstance();
-    if (deviceModel.getDevice != null) {
-      _connectedDevices.sink.add([deviceModel.getDevice!]);
+    if (_deviceModel.getDevice != null) {
+      _cdevices.add(_deviceModel.getDevice!);
+      _connectedDevices.sink.add(_cdevices);
     }
 
     FlutterBlue.instance.state.listen((state) {
@@ -60,6 +63,16 @@ class BluetoothPresenter
       }
     });
 
+    _flutterBlue.connectedDevices.then((devices) {
+      devices.forEach((device) {
+        if (device.name.length != 0) {
+            print('[info]\tVerbonden apparaat: ${device.name}');
+            device.disconnect();
+          }
+      });
+    });
+
+
     scanForDevices();
   }
 
@@ -73,6 +86,7 @@ class BluetoothPresenter
     _sdevices.stream.drain();
     List<String> b_ids = [];
     _searchDevices.clear();
+    _sdevices.sink.add(_searchDevices);
 
     try {
       _flutterBlue.startScan(timeout: Duration(seconds: _timeout), scanMode: ScanMode.balanced, allowDuplicates: false);
@@ -120,55 +134,63 @@ class BluetoothPresenter
     _connectedDevices.sink.add(_cdevices);
     _searchDevices.remove(device);
     _sdevices.sink.add(_searchDevices);
+    _deviceModel.setDevice = device;
 
-    BluetoothDeviceModel deviceModel = BluetoothDeviceModel.getInstance();
-    deviceModel.setDevice = device;
+    print('[info]\tDevice gevonden: ${_deviceModel.getDevice}');
 
-    var asciiDecoder = AsciiDecoder();
-
-    var henk = await device.discoverServices();
-
-    print('[info]\tDevice gevonden: ${deviceModel.getDevice == null}');
-
-    for (BluetoothService x in henk) {
-      List<BluetoothCharacteristic> characteristics = x.characteristics;
-      if (x.uuid.toString() == SERVICE_ID) {
-        for (BluetoothCharacteristic y in characteristics) {
-          if (y.properties.read && y.uuid.toString() == CHARACTERISTICS_ID) {
-
-            List<int> value = await y.read();
-            // print('[info]\tData: ${value}');
-            print('[info]\tData characteristics: ${asciiDecoder.convert(value)}');
-
-            List<BluetoothDescriptor> lol = y.descriptors;
-            for (BluetoothDescriptor z in lol) {
-              List<int> value = await z.read();
-              print('[info]\tData descriptor: ${value}');
-
-              //print('[info]\tData: ${asciiDecoder.convert(value)}');
-            }
-          }
-        }
-      }
-    }
-
-    // services.forEach((x) {
-    //     x.characteristics.forEach((y) async {
-    //       List<int> value = await y.read();
-    //
-    //
-    //       y.descriptors.forEach((z) async {
-    //         List<int> value = await z.read();
-    //         print('[info]\tData: ${value}');
-    //         //print('[info]\tData: ${asciiDecoder.convert(value)}');
-    //       });
-    //     });
-    // });
+    readFromDevice();
   }
 
 
   /**
+   * Method to write to a connected bluetooth device
    *
+   */
+  void writeToDevice()
+  {
+    var c = _deviceModel.getCharacteristics;
+
+    c.forEach((x) {
+
+    });
+  }
+
+
+  /**
+   * Method to read from a connected bluetooth device
+   */
+  void readFromDevice() async
+  {
+    if (_deviceModel.getDevice == null) {
+      return;
+    }
+
+    BluetoothDataModel dataModel = BluetoothDataModel.getInstance();
+    AsciiDecoder asciiDecoder = AsciiDecoder();
+
+    _deviceModel.setServices = await _deviceModel.getDevice!.discoverServices();
+
+    for (BluetoothService x in _deviceModel.getServices) {
+      _deviceModel.setCharacteristics = x.characteristics;
+      if (x.uuid.toString() == SERVICE_ID) {
+        for (BluetoothCharacteristic y in _deviceModel.getCharacteristics) {
+          if (y.properties.read && y.uuid.toString() == CHARACTERISTICS_ID) {
+            y.setNotifyValue(!y.isNotifying);
+            y.value.listen((n) {
+              List<int> value = n;
+              dataModel.setData = value;
+              print('[info]\tData: ${value}');
+            });
+            // print('[info]\tData characteristics: ${asciiDecoder.convert(value)}');
+          }
+        }
+      }
+    }
+  }
+
+
+  /**
+   * Method to disconnect from a device over bluetooth
    */
   void disconnectDevice(BluetoothDevice device)
   {
