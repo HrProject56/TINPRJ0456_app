@@ -10,6 +10,7 @@
 import 'package:flutter/material.dart';
 import '../models/settingsModel.dart';
 import 'dart:async';
+import '../utils/colorFunctions.dart';
 
 
 class SettingsPresenter
@@ -80,6 +81,8 @@ class SettingsPresenter
   static void setSavedSettingsOnStartup()
   {
     print("[info]\t\tFiles loaded on startup!");
+    print("[info]\t\tHSL: ${ColorFunctions.RGBtoHSL(153, 82, 83)}");
+    print("[info]\t\tRGB: ${ColorFunctions.HSLtoRGB(359.154, 0.302, 0.460)}");
   }
 
 

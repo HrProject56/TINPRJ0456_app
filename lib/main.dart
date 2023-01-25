@@ -10,6 +10,7 @@
 import 'package:flutter/material.dart';
 import 'views/export.dart';
 import 'presenters/settingsPresenter.dart';
+import 'utils/colorFunctions.dart';
 
 
 /**

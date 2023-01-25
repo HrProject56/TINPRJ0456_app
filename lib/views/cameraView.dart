@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import '../models/bluetoothDeviceModel.dart';
 import '../utils/uiFunctions.dart';
+import '../presenters/scanPresenter.dart';
 import 'package:camera/camera.dart';
 
 
@@ -31,6 +32,7 @@ class _CameraView extends State<CameraView>
 	List<BluetoothDevice> bl = [];
 	BluetoothDeviceModel d = BluetoothDeviceModel.getInstance();
 	BluetoothDevice?	_dropdownValue;
+	ScanPresenter _scanPresenter = ScanPresenter();
 
 	
 	/**
@@ -113,10 +115,13 @@ class _CameraView extends State<CameraView>
 													),
 													Container(
 														height: UIFunctions.calculateHeightByFactor(context, 20.0),
-														child: Icon(
-															Icons.upload_outlined,
-															size: 100.0,
-															color: UIFunctions.toggleFontColor(),
+														child: MaterialButton(
+															onPressed: () async => _scanPresenter.startScan(context),
+															child: Icon(
+																Icons.upload_outlined,
+																size: 100.0,
+																color: UIFunctions.toggleFontColor(),
+															),
 														),
 													),
 													Container(

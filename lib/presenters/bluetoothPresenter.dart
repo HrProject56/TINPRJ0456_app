@@ -72,7 +72,6 @@ class BluetoothPresenter
       });
     });
 
-
     scanForDevices();
   }
 
@@ -102,7 +101,6 @@ class BluetoothPresenter
       });
     } on PlatformException {
       /// TODO: Build own error system
-
     }
 
     stopScanning();
@@ -121,14 +119,21 @@ class BluetoothPresenter
   /**
    * Method to make a connection with a bluetooth device
    */
-  void connectToDevice(BluetoothDevice device) async
+  Future<void> connectToDevice(BluetoothDevice device) async
   {
-    try {
-      await device.connect(timeout: Duration(seconds: 10), autoConnect: false);
-      print('[info]\tSuccesvol gekoppeld aan apparaat: ${device.name}\n');
-    } on PlatformException {
+    StreamSubscription<BluetoothDeviceState> bluetoothSubscription;
 
-    }
+    bluetoothSubscription = device.state.listen((event) {
+      try {
+        if (event != BluetoothDeviceState.connected) {
+          device.connect(timeout: Duration(seconds: 10), autoConnect: false);
+        }
+        print('[info]\tSuccesvol gekoppeld aan apparaat: ${device.name}\n');
+      } on PlatformException {
+
+      }
+    });
+
 
     _cdevices.add(device);
     _connectedDevices.sink.add(_cdevices);
@@ -137,8 +142,6 @@ class BluetoothPresenter
     _deviceModel.setDevice = device;
 
     print('[info]\tDevice gevonden: ${_deviceModel.getDevice}');
-
-    readFromDevice();
   }
 
 
@@ -148,6 +151,10 @@ class BluetoothPresenter
    */
   void writeToDevice()
   {
+    if (_deviceModel.getDevice == null) {
+      return;
+    }
+
     var c = _deviceModel.getCharacteristics;
 
     c.forEach((x) {

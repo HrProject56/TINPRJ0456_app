@@ -9,6 +9,7 @@
 
 import 'package:flutter/material.dart';
 import '../utils/uiFunctions.dart';
+import '../presenters/scanPresenter.dart';
 
 
 class ResultsView extends StatefulWidget
@@ -23,7 +24,7 @@ class ResultsView extends StatefulWidget
 class _ResultsView extends State<ResultsView>
 {
 	final title = 'Results';
-
+	ScanPresenter scanPresenter = ScanPresenter();
 	
 	/**
 	 * Method to refresh the widget by disposing its old content
@@ -58,7 +59,26 @@ class _ResultsView extends State<ResultsView>
 							Container(
 								width: MediaQuery.of(context).size.width,
 								height: UIFunctions.calculateHeightByFactor(context,  70),
-							),							
+								padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+								child: ListView(
+									scrollDirection: Axis.vertical,
+									children: scanPresenter.generateResults(context),
+								),
+							),
+							Container(
+								width: MediaQuery.of(context).size.width,
+								height: UIFunctions.calculateHeightByFactor(context, 2),
+								child: MaterialButton(
+									onPressed: () async => scanPresenter.startScan(context),
+									child: Text(
+										title,
+										style: TextStyle(
+											fontSize: 15.0,
+											color: UIFunctions.toggleFontColor(),
+										),
+									),
+								),
+							),
 
 
 							// Navigation and footer container
