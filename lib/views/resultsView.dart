@@ -58,7 +58,7 @@ class _ResultsView extends State<ResultsView>
 							// Contents Container
 							Container(
 								width: MediaQuery.of(context).size.width,
-								height: UIFunctions.calculateHeightByFactor(context,  70),
+								height: UIFunctions.calculateHeightByFactor(context,  60),
 								padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
 								child: ListView(
 									scrollDirection: Axis.vertical,
@@ -67,11 +67,11 @@ class _ResultsView extends State<ResultsView>
 							),
 							Container(
 								width: MediaQuery.of(context).size.width,
-								height: UIFunctions.calculateHeightByFactor(context, 2),
+								height: UIFunctions.calculateHeightByFactor(context, 10),
 								child: MaterialButton(
 									onPressed: () async => scanPresenter.startScan(context),
 									child: Text(
-										title,
+										"Opnieuw scannen",
 										style: TextStyle(
 											fontSize: 15.0,
 											color: UIFunctions.toggleFontColor(),

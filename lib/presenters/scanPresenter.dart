@@ -14,6 +14,7 @@ import '../presenters/databasePresenter.dart';
 import '../utils/uiFunctions.dart';
 import '../views/resultsView.dart';
 import '../presenters/bluetoothPresenter.dart';
+import '../utils/colorFunctions.dart';
 import 'dart:async';
 
 
@@ -94,8 +95,15 @@ class ScanPresenter
               ),
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
-          child: Text(
-            "Color: " + l.toString(),
+          child: Column(
+            children: <Widget>[
+              Text(
+                "RGB: " + l.toString(),
+              ),
+              Text(
+                "HSL: " + ColorFunctions.RGBtoHSL(l[0].toDouble(), l[1].toDouble(), l[2].toDouble()).toString()
+              ),
+            ],
           ),
         )
       );

@@ -209,7 +209,7 @@ class _SettingsView extends State<SettingsView>
 																),
 															),
 															child: MaterialButton(
-																onPressed: () async => settingsPresenter.onPressedNavigation(context, "results"),
+																onPressed: () async => settingsPresenter.onPressedNavigation(context, "history"),
 																child: Icon(
 																	Icons.chevron_right,
 																	size: 35.0,
