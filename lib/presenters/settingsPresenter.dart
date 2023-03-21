@@ -83,6 +83,11 @@ class SettingsPresenter
     print("[info]\t\tFiles loaded on startup!");
     print("[info]\t\tHSL: ${ColorFunctions.RGBtoHSL(153, 82, 83)}");
     print("[info]\t\tRGB: ${ColorFunctions.HSLtoRGB(359.154, 0.302, 0.460)}");
+
+    List<double> l = ColorFunctions.RGBtoXYZ(153, 82, 83);
+    print("[info]\t\tXYZ: ${ColorFunctions.RGBtoXYZ(153, 82, 83)}");
+    print("[info]\t\tLAB: ${ColorFunctions.XYZtoLAB(l[0], l[1], l[2])}");
+    print("[info]\t\tDelta E value: ${ColorFunctions.DeltaE(62.7, -42.8, 39.6, 80.1, 0.1, -80.9)}");
   }
 
 
